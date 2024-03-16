@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+@model Tuple<GetInTouchDto, List<CoursesDto>>
+<!-- Header Start -->
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">@Localizer["Contact"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" asp-action="Index" asp-controller="Home">@Localizer["Home"]</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@Localizer["Contact"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">@Localizer["Contact"] </h6>
+            <h1 class="mb-5">@Localizer["ContactForAnyQuery"]</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h5>@Model.Item1.GetInTouchTitle</h5>
+                <p class="mb-4">@Model.Item1.GetInTouchDescription</p>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                        <i class="fa fa-map-marker-alt text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="text-primary">@Localizer["Address"]</h5>
+                        <p class="mb-0">@Model.Item1.Adress</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                        <i class="fa fa-phone-alt text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="text-primary">@Localizer["Mobil"]</h5>
+                        <p class="mb-0">@Model.Item1.PhoneNumber</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                        <i class="fa fa-envelope-open text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="text-primary">@Localizer["Email"]</h5>
+                        <p class="mb-0">@Model.Item1.Email</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                @using (Html.BeginForm("PostForm", "Contact", FormMethod.Post))
+                {
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Localizer["YourName"] @Html.TextBox("Name" , null , new{@class="form-control"})
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Localizer["Surname"] @Html.TextBox("Surname" , null , new{@class="form-control"})
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Localizer["Email"]  @Html.TextBox("Email" , null , new{@class="form-control"})
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                @Localizer["Course"] 
+                                <select class="form-control" cols="40" id="IdAdd" name="CourseId" rows="4">
+                                    @foreach (var item in Model.Item2)
+                                    {
+                                        <option value="@item.CourseId"> @item.CourseName </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                @Localizer["Message"] @Html.TextBox("Description" , null , new{@class="form-control"})
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit"> @Localizer["SendMessage"]</button>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->

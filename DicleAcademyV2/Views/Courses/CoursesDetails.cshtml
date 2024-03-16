@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+@model CourseDetailsDto
+<link href="~/assets/css/coursesdetilscss/coursesdetailscss.css" rel="stylesheet" />
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">@Localizer["Courses"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" asp-action="Index" asp-controller="Home">@Localizer["Home"]</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@Localizer["CoursesDetails"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product section -->
+<div class="container-xxl py-5">
+    <div class="product-container">
+
+    <!-- left side -->
+    <div class="img-card">
+            <img src="~/Images/CourseImages/@Model.Image" alt="" id="featured-image">
+    </div>
+    <!-- Right side -->
+    <div class="product-info">
+        <h3>@Model.CourseName</h3>
+           <p>@Model.CourseDescription</p>
+        <div>
+                <h5>@Localizer["TrainingType"]</h5>
+            <p>@Model.CourseLocation</p>
+            <div class="delivery">
+                    <h5>@Localizer["EducationTime"]</h5>
+                    <p>@Model.CourseDuration @Localizer["Hour"]</p>
+            </div>   
+        </div>
+    </div>
+    </div>
+</div>
+<!-- script tags -->
+<script src="~/assets/js/coursesdetailsjs/cart.js"></script>

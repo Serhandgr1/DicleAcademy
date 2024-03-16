@@ -1,0 +1,82 @@
+﻿﻿@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Http.Features;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Options;
+<link href="~/assets/css/flag.css" rel="stylesheet" />
+@inject IOptions<RequestLocalizationOptions> options
+@inject IViewLocalizer Localizer
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultures = options.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+        <div class="sl-nav">
+            @if (Thread.CurrentThread.CurrentUICulture.Name == "tr-TR")
+            {
+                <img src="http://cdn2.iconfinder.com/data/icons/flags/flags/32/Turkey.png" />
+            }
+            else
+            {
+                <img src="https://flagcdn.com/32x24/gb.png" />
+            }
+            <ul>
+                <li>
+                    <b></b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <ul>
+                    <li><a href="@Url.Action("SetLanguage","Home",new{culture="tr-TR",returnUrl=@returnUrl})"><img src="http://cdn2.iconfinder.com/data/icons/flags/flags/32/Turkey.png" />TR</a></li>
+                    <li><a href="@Url.Action("SetLanguage","Home",new{culture="en-US",returnUrl=@returnUrl})"><img src="https://flagcdn.com/32x24/gb.png" />EN</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+
+@*<style>
+    .flags {
+        width: 200px;
+        height: 32px;
+        /* sağa almak için "float: right;" kullanabilirsiniz*/
+        float: left;
+    }
+
+        .flags ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .flags ul li {
+                display: inline;
+            }
+</style>*@
+
+@*<div class="flags">
+    <ul>
+        <li><a href="@Url.Action("SetLanguage","Home",new{culture="tr-TR",returnUrl=@returnUrl})"><img src="http://cdn2.iconfinder.com/data/icons/flags/flags/32/Turkey.png" /></a></li>
+        <li><a href="@Url.Action("SetLanguage","Home",new{culture="en-US",returnUrl=@returnUrl})"><img src="http://cdn2.iconfinder.com/data/icons/flags/flags/32/England.png" /></a></li>
+    </ul>
+</div>*@
+@*<div class="flags">
+    <select data-selected="@requestCulture.RequestCulture.UICulture.Name">
+        <ul>
+        <option value="tr-TR"><li><a href="@Url.Action("SetLanguage","Home",new{culture="tr-TR",returnUrl=@returnUrl})"><img src="http://cdn2.iconfinder.com/data/icons/flags/flags/32/Turkey.png" /></a></li> </option>
+        <option value="en-US"><li><a href="@Url.Action("SetLanguage","Home",new{culture="en-US",returnUrl=@returnUrl})"><img src="http://cdn2.iconfinder.com/data/icons/flags/flags/32/Germany.png" /></a></li></option>
+        </ul>
+    </select>
+</div>*@
+@*<li class="nav-item">
+    <form class="nav-link" method="post" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl">
+        <select name="culture"
+                asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                asp-items="cultures"
+                onchange="this.form.submit();">
+        </select>
+    </form>
+</li>*@
